@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "1362f43a-1d3b-41f2-8754-109a1c8c902a",
+		"name": "EasyBet Answers Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get customers list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93a794b8-1f40-4118-89b0-ade195f0d6cf",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response schema to be valid json\", function () {",
+							"    var schema = { ",
+							"        \"type\": \"object\",",
+							"        \"required\": [\"customers\", \"totalBetsValue\"],",
+							"        \"properties\" : {",
+							"            \"totalBetsValue\": \"number\",",
+							"            \"customers\": {",
+							"                \"type\": \"array\",",
+							"                \"required\": [\"name\", \"betsCount\", \"betsAmount\", \"risky\"],",
+							"                \"items\": {",
+							"                    \"type\": \"object\",",
+							"                    \"properties\": {",
+							"                        \"name\": {",
+							"                            \"type\": \"string\"",
+							"                        },",
+							"                        \"betsCount\": {",
+							"                            \"type\": \"number\"",
+							"                        },",
+							"                        \"betsAmount\": {",
+							"                            \"type\": \"number\"",
+							"                        },",
+							"                        \"risky\": {",
+							"                            \"type\": \"boolean\"",
+							"                        }",
+							"                    },",
+							"                },",
+							"            }",
+							"        }",
+							"    };",
+							"    ",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    var isValid = tv4.validate(pm.response.json(), schema);",
+							"    if (isValid !== true) {",
+							"        console.log(tv4.error);",
+							"    }",
+							"    pm.expect(isValid).to.be.true;",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customers options",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47684c15-84bd-49fb-8a0b-77c849877ec7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.ok;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0a02ab89-0853-41ff-a7bd-9397241d357a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f43d4dc4-939b-421b-8497-de2c2e3460ff",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cebfd9c1-f22b-4a10-9765-8f8fa93b20a5",
+			"key": "host",
+			"value": "https://localhost:5001",
+			"type": "string"
+		}
+	]
+}
